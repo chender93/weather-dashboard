@@ -3,6 +3,7 @@ mainCityEl = document.querySelector("#featured-city");
 forecastEl = document.querySelector("#upcoming");
 searchBtn = document.querySelector("#button-addon2");
 todaysDate = (moment().format("L"));
+dayCounter = 1;
 
 searchBtn.onclick = function (choice) {
     //Logs the user's search choice
@@ -26,9 +27,9 @@ searchBtn.onclick = function (choice) {
                 return cityInfo.json();
             })
             .then(function (cityInfo) {
-                console.log(cityInfo.weather[0].icon);
                 //Clear out previous search result
                 mainCityEl.innerHTML = "";
+                forecastEl.innerHTML = "";
                 //Create Weather Icon
                 weatherIco = document.createElement("div");
                 weatherIco.innerHTML = "<img src='http://openweathermap.org/img/w/" + cityInfo.weather[0].icon + ".png' />";
@@ -42,7 +43,7 @@ searchBtn.onclick = function (choice) {
                 fList.textContent += "Wind Speed: " + cityInfo.wind.speed + "\r\n";
                 //Appending Everything to the Main Display
                 featureEl.appendChild(weatherIco);
-                mainCityEl.appendChild(featureEl); 
+                mainCityEl.appendChild(featureEl);
                 mainCityEl.appendChild(fList);
                 fetch("http://api.openweathermap.org/data/2.5/uvi?appid=f19269e626e5152019a125e36257aaf9&lat="
                     //Insert lat coordinates from above search
@@ -55,16 +56,47 @@ searchBtn.onclick = function (choice) {
                         return uvInfo.json();
                     })
                     .then(function (uvInfo) {
+                        uvIco = document.createElement("div");
+                        if (uvInfo.value >= 8) {
+                            uvIco.innerHTML = "<img src='https://raw.githubusercontent.com/chender93/weather-dashboard/feature/city-search/images/badUV.png' />"
+                        } else if (uvInfo.value >= 6) {
+                            uvIco.innerHTML = "<img src='https://raw.githubusercontent.com/chender93/weather-dashboard/feature/city-search/images/neutraUV.png' />"
+                        } else if (uvInfo.value <= 3) {
+                            uvIco.innerHTML = "<img src='https://raw.githubusercontent.com/chender93/weather-dashboard/feature/city-search/images/goodUV.png' />"
+                        }
                         fList.textContent += "UV Index: " + uvInfo.value;
-                        if (uvInfo.value)
+                        fList.appendChild(uvIco);
                     })
             })
+        fiveDay();
     }
-
-    //Take the information from the fetches and append to the maincityEl
-
-    //Create a for loop that will display cooresponding information for the upcoming 5 days
-
     //Append previous searches to the left-hand menu.
 
 };
+
+//Create a for loop that will display cooresponding information for the upcoming 5 days
+fiveDay = function (choice) {
+    choice = document.querySelector("#searchedCity").value;
+    fetch("http://api.openweathermap.org/data/2.5/forecast?q="
+        + choice +
+        "&appid=f19269e626e5152019a125e36257aaf9&units=imperial")
+        .then(function (forecastInfo) {
+            return forecastInfo.json();
+        })
+        .then(function (forecastInfo) {
+            for (var i = 1; i<=5; i++) {
+                dayCard = document.createElement("li");
+                forecastIco = document.createElement("div");
+                forecastInfo.innerHTML = "<img src='http://openweathermap.org/img/w/" + forecastInfo.list[i].weather[0].icon + ".png' />"
+                dayCard.setAttribute('style', 'white-space: pre;');
+                dayCard.classList.add("list-group-item", "bg-primary", "mx-2", "text-light");
+                dayCard.textContent = (moment().add(dayCounter, "d").format("L")) + "\r\n";
+                dayCard.textContent += "Temperature: " + forecastInfo.list[i].main.temp + "%\r\n";
+                dayCard.textContent += "Humidity: " + forecastInfo.list[i].main.humidity + "%\r\n";
+                forecastEl.appendChild(dayCard);
+                forecastEl.appendChild(forecastIco);
+                dayCounter++
+            }
+        })
+}
+
