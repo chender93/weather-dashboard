@@ -1,5 +1,6 @@
 cityListEl = document.querySelector("#previous");
 mainCityEl = document.querySelector("#featured-city");
+foreHeader = document.querySelector("#foreText");
 forecastEl = document.querySelector("#upcoming");
 searchBtn = document.querySelector("#button-addon2");
 todaysDate = (moment().format("L"));
@@ -61,7 +62,7 @@ searchBtn.onclick = function (choice) {
                             uvIco.innerHTML = "<img src='https://raw.githubusercontent.com/chender93/weather-dashboard/feature/city-search/images/badUV.png' />"
                         } else if (uvInfo.value >= 6) {
                             uvIco.innerHTML = "<img src='https://raw.githubusercontent.com/chender93/weather-dashboard/feature/city-search/images/neutraUV.png' />"
-                        } else if (uvInfo.value <= 3) {
+                        } else {
                             uvIco.innerHTML = "<img src='https://raw.githubusercontent.com/chender93/weather-dashboard/feature/city-search/images/goodUV.png' />"
                         }
                         fList.textContent += "UV Index: " + uvInfo.value;
@@ -84,17 +85,18 @@ fiveDay = function (choice) {
             return forecastInfo.json();
         })
         .then(function (forecastInfo) {
-            for (var i = 1; i<=5; i++) {
+            foreHeader.textContent = "5-Day Forecast: ";
+            for (var i = 1; i <= 5; i++) {
                 dayCard = document.createElement("li");
                 forecastIco = document.createElement("div");
-                forecastInfo.innerHTML = "<img src='http://openweathermap.org/img/w/" + forecastInfo.list[i].weather[0].icon + ".png' />"
+                forecastIco.innerHTML = "<img src='http://openweathermap.org/img/w/" + forecastInfo.list[i].weather[0].icon + ".png' />"
                 dayCard.setAttribute('style', 'white-space: pre;');
                 dayCard.classList.add("list-group-item", "bg-primary", "mx-2", "text-light");
                 dayCard.textContent = (moment().add(dayCounter, "d").format("L")) + "\r\n";
                 dayCard.textContent += "Temperature: " + forecastInfo.list[i].main.temp + "%\r\n";
                 dayCard.textContent += "Humidity: " + forecastInfo.list[i].main.humidity + "%\r\n";
+                dayCard.appendChild(forecastIco);
                 forecastEl.appendChild(dayCard);
-                forecastEl.appendChild(forecastIco);
                 dayCounter++
             }
         })
