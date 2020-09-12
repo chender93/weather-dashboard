@@ -5,6 +5,11 @@ searchBtn = document.querySelector("#button-addon2");
 
 searchBtn.onclick = function (choice) {
     choice = document.querySelector("#searchedCity").value;
+    console.log(choice);
+    searchedCity = document.createElement("button");
+    searchedCity.className = "list-group-item";
+    searchedCity.textContent = choice;
+    cityListEl.appendChild(searchedCity);
     //Fetch Request colleting weather information
     if (!choice) {
         alert("You must select a city before searching!");
@@ -33,4 +38,11 @@ searchBtn.onclick = function (choice) {
                     })
             })
     }
+
+    //Take the information from the fetches and append to the maincityEl
+    
+    //Create a for loop that will display cooresponding information for the upcoming 5 days
+
+    //Append previous searches to the left-hand menu.
+        
 };
