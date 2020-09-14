@@ -24,4 +24,6 @@ I utilized my knowledge from previous weeks along with getting help from TAs and
 ## Final Statements/ Conclusion
 I have a newfound respect for coding and the intricacies that lie beneath the surface. Oftentimes, we see a webpage and take for granted that someone had to meticulously ensure that all of the elements worked properly so we can have an enjoyable experience. I know I would get upset and frustrated when links on a page were broken or a button did not complete the function it was designed to, but as a growing developer, I realize that those issues are par for the course. I look forward to digging deeper into the skills I've learned over the past 6 weeks and having the opportunity to work with my fellow classmates on our upcoming projects.
 
+### You can see my deployed project [Here](https://chender93.github.io/weather-dashboard/)
+
 -Curtis Henderson
