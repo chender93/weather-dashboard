@@ -31,7 +31,7 @@ searchBtn.onclick = function (choice) {
                 forecastEl.innerHTML = "";
                 //Create Weather Icon
                 weatherIco = document.createElement("div");
-                weatherIco.innerHTML = "<img src='http://openweathermap.org/img/w/" + cityInfo.weather[0].icon + ".png' />";
+                weatherIco.innerHTML = "<img src='https://openweathermap.org/img/w/" + cityInfo.weather[0].icon + ".png' />";
                 //Create searched city result
                 featureEl = document.createElement("h2");
                 featureEl.textContent = cityInfo.name + " (" + todaysDate + ") ";
@@ -44,7 +44,7 @@ searchBtn.onclick = function (choice) {
                 featureEl.appendChild(weatherIco);
                 mainCityEl.appendChild(featureEl);
                 mainCityEl.appendChild(fList);
-                fetch("http://api.openweathermap.org/data/2.5/uvi?appid=f19269e626e5152019a125e36257aaf9&lat="
+                fetch("https://api.openweathermap.org/data/2.5/uvi?appid=f19269e626e5152019a125e36257aaf9&lat="
                     //Insert lat coordinates from above search
                     + cityInfo.coord.lat +
                     "&lon="
@@ -87,7 +87,7 @@ makeList = function () {
 fiveDay = function () {
     dayCounter = 1;
     choice = document.querySelector("#searchedCity").value;
-    fetch("http://api.openweathermap.org/data/2.5/forecast?q="
+    fetch("https://api.openweathermap.org/data/2.5/forecast?q="
         + choice +
         "&appid=f19269e626e5152019a125e36257aaf9&units=imperial")
         .then(function (forecastInfo) {
@@ -98,7 +98,7 @@ fiveDay = function () {
             for (var i = 1; i <= 5; i++) {
                 dayCard = document.createElement("li");
                 forecastIco = document.createElement("div");
-                forecastIco.innerHTML = "<img src='http://openweathermap.org/img/w/" + forecastInfo.list[i].weather[0].icon + ".png' />"
+                forecastIco.innerHTML = "<img src='https://openweathermap.org/img/w/" + forecastInfo.list[i].weather[0].icon + ".png' />"
                 dayCard.setAttribute('style', 'white-space: pre;');
                 dayCard.classList.add("list-group-item", "bg-primary", "mx-2", "text-light");
                 dayCard.textContent = (moment().add(dayCounter, "d").format("L")) + "\r\n";
@@ -126,7 +126,7 @@ cityBtn.onclick = function (recent) {
                 forecastEl.innerHTML = "";
                 //Create Weather Icon
                 weatherIco = document.createElement("div");
-                weatherIco.innerHTML = "<img src='http://openweathermap.org/img/w/" + cityInfo.weather[0].icon + ".png' />";
+                weatherIco.innerHTML = "<img src='https://openweathermap.org/img/w/" + cityInfo.weather[0].icon + ".png' />";
                 //Create searched city result
                 featureEl = document.createElement("h2");
                 featureEl.textContent = cityInfo.name + " (" + todaysDate + ") ";
@@ -139,7 +139,7 @@ cityBtn.onclick = function (recent) {
                 featureEl.appendChild(weatherIco);
                 mainCityEl.appendChild(featureEl);
                 mainCityEl.appendChild(fList);
-                fetch("http://api.openweathermap.org/data/2.5/uvi?appid=f19269e626e5152019a125e36257aaf9&lat="
+                fetch("https://api.openweathermap.org/data/2.5/uvi?appid=f19269e626e5152019a125e36257aaf9&lat="
                     //Insert lat coordinates from above search
                     + cityInfo.coord.lat +
                     "&lon="
