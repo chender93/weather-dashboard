@@ -85,6 +85,7 @@ makeList = function () {
 
 //Create a for loop that will display cooresponding information for the upcoming 5 days
 fiveDay = function () {
+    dayCounter = 1;
     choice = document.querySelector("#searchedCity").value;
     fetch("http://api.openweathermap.org/data/2.5/forecast?q="
         + choice +
